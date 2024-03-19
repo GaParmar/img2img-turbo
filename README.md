@@ -123,5 +123,13 @@ We tightly integrate three separate modules in the original latent diffusion mod
     ```
 
 
+## Gradio Demo
+- We provide a Gradio demo for the paired image translation tasks.
+- The following command will launch the sketch to image locally using gradio.
+    ```
+    gradio gradio_sketch2image.py
+    ```
+
+
 ## Acknowledgment
 Our work uses the Stable Diffusion-Turbo as the base model with the following [LICENSE](https://huggingface.co/stabilityai/sd-turbo/blob/main/LICENSE).
