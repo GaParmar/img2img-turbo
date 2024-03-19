@@ -3,16 +3,12 @@
 ### [**Paper**](https://arxiv.org/abs/2403.12036) | [**Sketch Demo**](https://huggingface.co/spaces/gparmar/img2img-turbo-sketch)
 #### **Quick start:** [**Running Locally**](#getting-started) | [**Gradio (locally hosted)**](#gradio-demo)
 
-
-
-https://github.com/GaParmar/img2img-turbo/assets/24502906/cfb8c9cb-a778-48e7-bb0b-4fe3fb084dc7
-
-
-
-https://github.com/GaParmar/img2img-turbo/assets/24502906/23ce2e40-1bea-4a48-b9c7-2a2f8185b9c8
-
-
-
+<p align="center">
+<img src="https://raw.githubusercontent.com/GaParmar/img2img-turbo/main/assets/cat_2x.gif" />
+</p>
+<p align="center">
+<img src="https://raw.githubusercontent.com/GaParmar/img2img-turbo/main/assets/fish_2x.gif" />
+</p>
 
 <br>
 <div>
