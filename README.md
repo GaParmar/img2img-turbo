@@ -1,12 +1,15 @@
 # img2img-turbo
 
-### [**Paper**](https://arxiv.org/abs/2403.12036) | [**Sketch2Image Demo**](https://huggingface.co/spaces/gparmar/img2img-turbo-sketch)
+[**Paper**](https://arxiv.org/abs/2403.12036) | [**Sketch2Image Demo**](https://huggingface.co/spaces/gparmar/img2img-turbo-sketch)
 #### **Quick start:** [**Running Locally**](#getting-started) | [**Gradio (locally hosted)**](#gradio-demo)
 
-<p align="center" >
+### Cat Sketching
+<p align="left" >
 <img src="https://raw.githubusercontent.com/GaParmar/img2img-turbo/main/assets/cat_2x.gif" width="800" />
 </p>
-<p align="center">
+
+### Fish Sketching
+<p align="left">
 <img src="https://raw.githubusercontent.com/GaParmar/img2img-turbo/main/assets/fish_2x.gif"  width="800" />
 </p>
 
