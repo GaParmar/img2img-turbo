@@ -7,7 +7,7 @@ import torchvision.transforms.functional as F
 from pix2pix_turbo import Pix2Pix_Turbo
 from image_prep import canny_from_pil
 
-if __name__=="__main__":
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--input_image', type=str, required=True, help='path to the input image')
     parser.add_argument('--prompt', type=str, required=True, help='the prompt to be used')
@@ -34,17 +34,17 @@ if __name__=="__main__":
             canny = canny_from_pil(input_image, args.low_threshold, args.high_threshold)
             c_t = transforms.ToTensor()(canny).unsqueeze(0).cuda()
             output_image = model(c_t, args.prompt)
-        
+
         if args.model_name == 'sketch_to_image_stochastic':
             image_t = F.to_tensor(input_image) < 0.5
             c_t = image_t.unsqueeze(0).cuda().float()
             torch.manual_seed(args.seed)
-            B,C,H,W = c_t.shape
-            noise = torch.randn((1,4,H//8, W//8), device=c_t.device)
+            B, C, H, W = c_t.shape
+            noise = torch.randn((1, 4, H // 8, W // 8), device=c_t.device)
             output_image = model(c_t, args.prompt, deterministic=False, r=args.gamma, noise_map=noise)
-        
-        output_pil = transforms.ToPILImage()(output_image[0].cpu()*0.5+0.5)
-    
+
+        output_pil = transforms.ToPILImage()(output_image[0].cpu() * 0.5 + 0.5)
+
     # save the output image
     bname = os.path.basename(args.input_image)
     os.makedirs(args.output_dir, exist_ok=True)

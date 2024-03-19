@@ -1,14 +1,12 @@
 import os
-import sys
 import argparse
 from PIL import Image
 import torch
 from torchvision import transforms
-import torchvision.transforms.functional as F
 from cyclegan_turbo import CycleGAN_Turbo
-from image_prep import canny_from_pil
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--input_image', type=str, required=True, help='path to the input image')
     parser.add_argument('--model_name', type=str, default='day_to_night', help='name of the model to be used')
@@ -19,22 +17,22 @@ if __name__=="__main__":
     # initialize the model
     model = CycleGAN_Turbo(args.model_name)
 
-    if args.image_prep=="resize_512x512":
+    if args.image_prep == "resize_512x512":
         T_val = transforms.Compose([
-            transforms.Resize((512,512), interpolation=Image.LANCZOS),
+            transforms.Resize((512, 512), interpolation=Image.LANCZOS),
             transforms.ToTensor(),
             transforms.Normalize([0.5], [0.5]),
         ])
-    
+
     input_image = Image.open(args.input_image).convert('RGB')
     # translate the image
     with torch.no_grad():
         x_t = T_val(input_image).unsqueeze(0).cuda()
         output = model(x_t, direction="a2b")
 
-    output_pil = transforms.ToPILImage()(output[0].cpu()*0.5+0.5)
+    output_pil = transforms.ToPILImage()(output[0].cpu() * 0.5 + 0.5)
     output_pil = output_pil.resize((input_image.width, input_image.height), Image.LANCZOS)
-    
+
     # save the output image
     bname = os.path.basename(args.input_image)
     os.makedirs(args.output_dir, exist_ok=True)

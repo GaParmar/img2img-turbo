@@ -1,6 +1,3 @@
-import os
-import sys
-import pdb
 import random
 import numpy as np
 from PIL import Image
@@ -8,11 +5,9 @@ import base64
 from io import BytesIO
 
 import torch
-from torchvision import transforms
-import torchvision.transforms.functional as TF
+import torchvision.transforms.functional as F
 import gradio as gr
 
-from src.model import make_1step_sched
 from src.pix2pix_turbo import Pix2Pix_Turbo
 
 model = Pix2Pix_Turbo("sketch_to_image_stochastic")
@@ -78,8 +73,7 @@ def run(image, prompt, prompt_template, style_name, seed, val_r):
         return ones, gr.update(link=temp_uri), gr.update(link=temp_uri)
     prompt = prompt_template.replace("{prompt}", prompt)
     image = image.convert("RGB")
-    image_t = TF.to_tensor(image) > 0.5
-    image_pil = TF.to_pil_image(image_t.to(torch.float32))
+    image_t = F.to_tensor(image) > 0.5
     print(f"r_val={val_r}, seed={seed}")
     with torch.no_grad():
         c_t = image_t.unsqueeze(0).cuda().float()
@@ -87,7 +81,7 @@ def run(image, prompt, prompt_template, style_name, seed, val_r):
         B, C, H, W = c_t.shape
         noise = torch.randn((1, 4, H // 8, W // 8), device=c_t.device)
         output_image = model(c_t, prompt, deterministic=False, r=val_r, noise_map=noise)
-    output_pil = TF.to_pil_image(output_image[0].cpu() * 0.5 + 0.5)
+    output_pil = F.to_pil_image(output_image[0].cpu() * 0.5 + 0.5)
     input_sketch_uri = pil_image_to_data_uri(Image.fromarray(255 - np.array(image)))
     output_image_uri = pil_image_to_data_uri(output_pil)
     return (
@@ -124,7 +118,7 @@ async () => {
         document.body.appendChild(link); // Required for Firefox
         link.click();
         document.body.removeChild(link); // Clean up
-      
+
         // also call the output download function
         theOutputDownloadFunction();
       return false
@@ -187,7 +181,6 @@ async () => {
             document.getElementById('my-div-pencil').style.backgroundColor = "white";
             document.getElementById('my-div-eraser').style.backgroundColor = "gray";
         }
-        
     }
 
     globalThis.toggleEraser = () => {

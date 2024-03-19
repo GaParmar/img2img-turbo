@@ -1,20 +1,13 @@
-import os
-import sys
-
-import diffusers
-from transformers import AutoTokenizer, PretrainedConfig
-from diffusers import AutoencoderKL, UNet2DConditionModel, DDPMScheduler
+from diffusers import DDPMScheduler
 
 
 def make_1step_sched():
-    noise_scheduler = DDPMScheduler.from_pretrained("stabilityai/sd-turbo", subfolder="scheduler")
     noise_scheduler_1step = DDPMScheduler.from_pretrained("stabilityai/sd-turbo", subfolder="scheduler")
     noise_scheduler_1step.set_timesteps(1, device="cuda")
     noise_scheduler_1step.alphas_cumprod = noise_scheduler_1step.alphas_cumprod.cuda()
     return noise_scheduler_1step
 
 
-"""The forward method of the `Encoder` class."""
 def my_vae_encoder_fwd(self, sample):
     sample = self.conv_in(sample)
     l_blocks = []
@@ -31,8 +24,7 @@ def my_vae_encoder_fwd(self, sample):
     return sample
 
 
-"""The forward method of the `Decoder` class."""
-def my_vae_decoder_fwd(self,sample, latent_embeds = None):
+def my_vae_decoder_fwd(self, sample, latent_embeds=None):
     sample = self.conv_in(sample)
     upscale_dtype = next(iter(self.up_blocks.parameters())).dtype
     # middle

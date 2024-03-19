@@ -1,13 +1,9 @@
-import os
-import pdb
 import numpy as np
 from PIL import Image
 import torch
 from torchvision import transforms
 import gradio as gr
-
 from src.image_prep import canny_from_pil
-from src.model import make_1step_sched
 from src.pix2pix_turbo import Pix2Pix_Turbo
 
 model = Pix2Pix_Turbo("canny_to_image")
