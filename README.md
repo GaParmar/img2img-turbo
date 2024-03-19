@@ -41,6 +41,12 @@ Our one-step conditional models  **CycleGAN-Turbo** and **pix2pix-turbo** can pe
 
 <!-- **Sketch to Image**
 TODO -->
+### Generating Diverse Outputs
+By varying the input noise map, our method can generate diverse outputs from the same input conditioning.
+The output style can be controlled by changing the text prompt.
+<div> <p align="center">
+<img src='assets/gen_variations.jpg' align="center" width=800px>
+</p> </div>
 
 ### Unpaired Translation with CycleGAN-Turbo
 
