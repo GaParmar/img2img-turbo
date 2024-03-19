@@ -22,33 +22,61 @@ def process(input_image, prompt, low_threshold, high_threshold):
     with torch.no_grad():
         c_t = transforms.ToTensor()(canny).unsqueeze(0).cuda()
         output_image = model(c_t, prompt)
-        output_pil = transforms.ToPILImage()(output_image[0].cpu()*0.5+0.5)
+        output_pil = transforms.ToPILImage()(output_image[0].cpu() * 0.5 + 0.5)
     # flippy canny values, map all 0s to 1s and 1s to 0s
-    canny_viz = 1 - (np.array(canny)/255)
-    canny_viz = Image.fromarray((canny_viz*255).astype(np.uint8))
+    canny_viz = 1 - (np.array(canny) / 255)
+    canny_viz = Image.fromarray((canny_viz * 255).astype(np.uint8))
     return canny_viz, output_pil
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     # load the model
     with gr.Blocks() as demo:
         gr.Markdown("# Pix2pix-Turbo: **Canny Edge -> Image**")
         with gr.Row():
             with gr.Column():
-                input_image = gr.Image(sources='upload', type="pil")
+                input_image = gr.Image(sources="upload", type="pil")
                 prompt = gr.Textbox(label="Prompt")
-                low_threshold = gr.Slider(label="Canny low threshold", minimum=1, maximum=255, value=100, step=10)
-                high_threshold = gr.Slider(label="Canny high threshold", minimum=1, maximum=255, value=200, step=10)
+                low_threshold = gr.Slider(
+                    label="Canny low threshold",
+                    minimum=1,
+                    maximum=255,
+                    value=100,
+                    step=10,
+                )
+                high_threshold = gr.Slider(
+                    label="Canny high threshold",
+                    minimum=1,
+                    maximum=255,
+                    value=200,
+                    step=10,
+                )
                 run_button = gr.Button(value="Run")
             with gr.Column():
                 result_canny = gr.Image(type="pil")
             with gr.Column():
                 result_output = gr.Image(type="pil")
 
-        prompt.submit(fn=process, inputs=[input_image, prompt, low_threshold, high_threshold], outputs=[result_canny, result_output])
-        low_threshold.change(fn=process, inputs=[input_image, prompt, low_threshold, high_threshold], outputs=[result_canny, result_output])
-        high_threshold.change(fn=process, inputs=[input_image, prompt, low_threshold, high_threshold], outputs=[result_canny, result_output])
-        run_button.click(fn=process, inputs=[input_image, prompt, low_threshold, high_threshold], outputs=[result_canny, result_output])
+        prompt.submit(
+            fn=process,
+            inputs=[input_image, prompt, low_threshold, high_threshold],
+            outputs=[result_canny, result_output],
+        )
+        low_threshold.change(
+            fn=process,
+            inputs=[input_image, prompt, low_threshold, high_threshold],
+            outputs=[result_canny, result_output],
+        )
+        high_threshold.change(
+            fn=process,
+            inputs=[input_image, prompt, low_threshold, high_threshold],
+            outputs=[result_canny, result_output],
+        )
+        run_button.click(
+            fn=process,
+            inputs=[input_image, prompt, low_threshold, high_threshold],
+            outputs=[result_canny, result_output],
+        )
 
     demo.queue()
     demo.launch(debug=True, share=False)

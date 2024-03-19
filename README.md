@@ -1,19 +1,19 @@
 # img2img-turbo
 
-### [**Paper**](https://arxiv.org/abs/2403.12036) | [**Sketch Demo**](https://huggingface.co/spaces/gparmar/img2img-turbo-sketch)
+### [**Paper**](https://arxiv.org/abs/2403.12036) | [**Sketch2Image Demo**](https://huggingface.co/spaces/gparmar/img2img-turbo-sketch)
 #### **Quick start:** [**Running Locally**](#getting-started) | [**Gradio (locally hosted)**](#gradio-demo)
 
-<p align="center">
+<p align="center" width="800">
 <img src="https://raw.githubusercontent.com/GaParmar/img2img-turbo/main/assets/cat_2x.gif" />
 </p>
-<p align="center">
+<p align="center" width="800">
 <img src="https://raw.githubusercontent.com/GaParmar/img2img-turbo/main/assets/fish_2x.gif" />
 </p>
 
 
 
 
-We propose a general method for adapting a single-step diffusion model, such as SD-Turbo, to new tasks and domains through adversarial learning. This enables us to leverage the internal knowledge of pre-trained diffusion models while achieving efficient inference (e.g., for 512x512 image, 0.29 seconds on A6000, and 0.11 seconds on A100). Our single-step image-to-image translation models, called **CycleGAN-Turbo** and **pix2pix-Turbo**, can synthesize realistic outputs for unpaired and paired settings. Our one-step model can perform various image-to-image translation tasks for both paired and unpaired settings. CycleGAN-Turbo outperforms existing GAN-based and diffusion-based methods, while pix2pix-Turbo is on par with recent works such as ControlNet for Sketch2Photo and Edge2Image, but with one-step inference. 
+We propose a general method for adapting a single-step diffusion model, such as SD-Turbo, to new tasks and domains through adversarial learning. This enables us to leverage the internal knowledge of pre-trained diffusion models while achieving efficient inference (e.g., for 512x512 image, 0.29 seconds on A6000, and 0.11 seconds on A100). Our single-step image-to-image translation models, called **CycleGAN-Turbo** and **pix2pix-turbo**, can synthesize realistic outputs for unpaired and paired settings. Our one-step model can perform various image-to-image translation tasks for both paired and unpaired settings. CycleGAN-Turbo outperforms existing GAN-based and diffusion-based methods, while pix2pix-Turbo is on par with recent works such as ControlNet for Sketch2Photo and Edge2Image, but with one-step inference. 
 
 
 
@@ -67,7 +67,7 @@ TODO -->
 <hr>
 
 
-## Method Details
+## Method
 **Our Generator Architecture:**
 We tightly integrate three separate modules in the original latent diffusion models into a single end-to-end network with small trainable weights. This architecture allows us to translate the input image x to the output y, while retaining the input scene structure. We use LoRA adapters in each module, introduce skip connections and Zero-Convs between input and output, and retrain the first layer of the U-Net. Blue boxes indicate trainable layers. Semi-transparent layers are frozen. The same generator can be used for various GAN objectives.
 <div>
@@ -91,7 +91,7 @@ We tightly integrate three separate modules in the original latent diffusion mod
 
 **Paired Image Translation (pix2pix-turbo)**
 - The following command takes an image file and a prompt as inputs, extracts the canny edges, and saves the results in the directory specified.
-    ```
+    ```bash
     python src/inference_paired.py --model "edge_to_image" \
         --input_image "assets/bird.png" \
         --prompt "a blue bird" \
@@ -99,7 +99,7 @@ We tightly integrate three separate modules in the original latent diffusion mod
     ```
 
 - The following command takes a sketch and a prompt as inputs, and saves the results in the directory specified.
-    ```
+    ```bash
     python src/inference_paired.py --model "sketch_to_image_stochastic" \
     --input_image "assets/sketch.png" --gamma 0.4 \
     --prompt "ethereal fantasy concept art of an asteroid. magnificent, celestial, ethereal, painterly, epic, majestic, magical, fantasy art, cover art, dreamy" \
@@ -108,7 +108,7 @@ We tightly integrate three separate modules in the original latent diffusion mod
 
 **Unpaired Image Translation (CycleGAN-Turbo)**
 - The following command takes an image file as input, and saves the results in the directory specified.
-    ```
+    ```bash
     python src/inference_unpaired.py --model "day_to_night" \
         --input_image "assets/day.png" --output_dir "outputs"
     ```
