@@ -213,7 +213,9 @@ async () => {
 
 with gr.Blocks(css="style.css") as demo:
     gr.Markdown("# Pix2pix-Turbo: **Sketch**", elem_id="description")
-     # these are hidden buttons that are used to trigger the canvas changes
+    gr.Markdown("**Paper:** One-Step Image Translation with Text-to-Image Models", elem_id="paper_name")
+    gr.Markdown("**GitHub:** https://github.com/GaParmar/img2img-turbo", elem_id="github")
+    # these are hidden buttons that are used to trigger the canvas changes
     line = gr.Checkbox(label="line", value=False, elem_id="cb-line")
     eraser = gr.Checkbox(label="eraser", value=False, elem_id="cb-eraser")
     with gr.Row(elem_id="main_row"):
