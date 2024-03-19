@@ -1,0 +1,206 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css');
+
+/* the outermost contrained of the app */
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1000px;
+}
+
+/* #main_row{
+    
+} */
+
+/* hide this class */
+.svelte-p4aq0j {
+    display: none;
+}
+
+.wrap.svelte-p4aq0j.svelte-p4aq0j {
+    display: none;
+}
+
+#download_sketch{
+    display: none;
+}
+
+#download_output{
+    display: none;
+}
+
+#column_input, #column_output{
+    width: 500px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+#tools_header, #input_header, #output_header, #process_header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+}
+
+
+#nn{
+    width: 100px;
+    height: 100px;
+}
+
+
+#column_process{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 600px;
+}
+
+/* this is the "UNDO_BUTTON, X_BUTTON" */
+div.svelte-1030q2h{
+    width: 30px;
+    height: 30px;
+    display: none;
+}
+
+
+#component-5 > div{
+    border: 0px;
+    box-shadow: none;
+}
+
+#cb-eraser, #cb-line{
+    display: none;
+}
+
+/* eraser text */
+#cb-eraser > label > span{
+    display: none;
+}
+#cb-line > label > span{
+    display: none;
+}
+
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    border: 0px;
+}
+
+#my-toggle-pencil{
+    background-image: url("https://icons.getbootstrap.com/assets/icons/pencil.svg");
+    background-color: white;
+    background-size: cover;
+    margin: 0px;
+    box-shadow: none;
+    width: 40px;
+    height: 40px;
+}
+
+#my-toggle-pencil.clicked{
+    background-image: url("https://icons.getbootstrap.com/assets/icons/pencil-fill.svg");
+    transform: scale(0.98);
+    background-color: gray;
+    background-size: cover;
+    /* background-size: 95%;
+    background-position: center; */
+    /* border: 2px solid #000; */
+    margin: 0px;
+    box-shadow: none;
+    width: 40px;
+    height: 40px;
+}
+
+
+#my-toggle-eraser{
+    background-image: url("https://icons.getbootstrap.com/assets/icons/eraser.svg");
+    background-color: white;
+    background-color: white;
+    background-size: cover;
+    margin: 0px;
+    box-shadow: none;
+    width: 40px;
+    height: 40px;
+}
+
+#my-toggle-eraser.clicked{
+    background-image: url("https://icons.getbootstrap.com/assets/icons/eraser-fill.svg");
+    transform: scale(0.98);
+    background-color: gray;
+    background-size: cover;
+    margin: 0px;
+    box-shadow: none;
+    width: 40px;
+    height: 40px;
+}
+
+
+
+#my-button-undo{
+    background-image: url("https://icons.getbootstrap.com/assets/icons/arrow-counterclockwise.svg");
+    background-color: white;
+    background-size: cover;
+    margin: 0px;
+    box-shadow: none;
+    width: 40px;
+    height: 40px;
+}
+
+#my-button-clear{
+    background-image: url("https://icons.getbootstrap.com/assets/icons/x-lg.svg");
+    background-color: white;
+    background-size: cover;
+    margin: 0px;
+    box-shadow: none;
+    width: 40px;
+    height: 40px;
+    
+}
+
+
+#my-button-down{
+    background-image: url("https://icons.getbootstrap.com/assets/icons/arrow-down.svg");
+    background-color: white;
+    background-size: cover;
+    margin: 0px;
+    box-shadow: none;
+    width: 40px;
+    height: 40px;
+    
+}
+
+.pad2{
+    padding: 2px;
+    background-color: white;
+    border: 2px solid #000;
+    margin: 10px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+
+
+
+#output_image, #input_image{
+    border-radius: 0px;
+    border: 5px solid #000;
+    border-width: none;
+}
+
+
+#output_image > img{
+    border: 5px solid #000;
+    border-radius: 0px;
+    border-width: none;
+}
+
+#input_image > div.image-container.svelte-p3y7hu > div.wrap.svelte-yigbas > canvas:nth-child(1){
+    border: 5px solid #000;
+    border-radius: 0px;
+    border-width: none;
+}
