@@ -3,14 +3,12 @@
 ### [**Paper**](https://arxiv.org/abs/2403.12036) | [**Sketch2Image Demo**](https://huggingface.co/spaces/gparmar/img2img-turbo-sketch)
 #### **Quick start:** [**Running Locally**](#getting-started) | [**Gradio (locally hosted)**](#gradio-demo)
 
-<p align="center" width="800">
-<img src="https://raw.githubusercontent.com/GaParmar/img2img-turbo/main/assets/cat_2x.gif" />
+<p align="center" >
+<img src="https://raw.githubusercontent.com/GaParmar/img2img-turbo/main/assets/cat_2x.gif" width="800" />
 </p>
-<p align="center" width="800">
-<img src="https://raw.githubusercontent.com/GaParmar/img2img-turbo/main/assets/fish_2x.gif" />
+<p align="center">
+<img src="https://raw.githubusercontent.com/GaParmar/img2img-turbo/main/assets/fish_2x.gif"  width="800" />
 </p>
-
-
 
 
 We propose a general method for adapting a single-step diffusion model, such as SD-Turbo, to new tasks and domains through adversarial learning. This enables us to leverage the internal knowledge of pre-trained diffusion models while achieving efficient inference (e.g., for 512x512 image, 0.29 seconds on A6000, and 0.11 seconds on A100). Our single-step image-to-image translation models, called **CycleGAN-Turbo** and **pix2pix-turbo**, can synthesize realistic outputs for unpaired and paired settings. Our one-step model can perform various image-to-image translation tasks for both paired and unpaired settings. CycleGAN-Turbo outperforms existing GAN-based and diffusion-based methods, while pix2pix-Turbo is on par with recent works such as ControlNet for Sketch2Photo and Edge2Image, but with one-step inference. 
@@ -28,7 +26,7 @@ We propose a general method for adapting a single-step diffusion model, such as 
 
 ## Results
 
-### Paired Translation
+### Paired Translation with pix2pix-turbo
 **Edge to Image**
 <div>
 <p align="center">
@@ -39,7 +37,7 @@ We propose a general method for adapting a single-step diffusion model, such as 
 <!-- **Sketch to Image**
 TODO -->
 
-### Unpaired Translation on Driving Images
+### Unpaired Translation with CycleGAN-Turbo
 
 **Day to Night**
 <div> <p align="center">
