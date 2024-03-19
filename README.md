@@ -1,6 +1,6 @@
 # img2img-turbo
 
-### [**Paper**](TODO) | [**Sketch Demo**](https://huggingface.co/spaces/gparmar/img2img-turbo-sketch)
+### [**Paper**](https://arxiv.org/abs/2403.12036) | [**Sketch Demo**](https://huggingface.co/spaces/gparmar/img2img-turbo-sketch)
 #### **Quick start:** [**Running Locally**](#getting-started) | [**Gradio (locally hosted)**](#gradio-demo)
 
 
