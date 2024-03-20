@@ -6,7 +6,7 @@ import gradio as gr
 from src.image_prep import canny_from_pil
 from src.pix2pix_turbo import Pix2Pix_Turbo
 
-model = Pix2Pix_Turbo("canny_to_image")
+model = Pix2Pix_Turbo("edge_to_image")
 
 
 def process(input_image, prompt, low_threshold, high_threshold):
