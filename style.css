@@ -57,6 +57,13 @@
     height: 600px;
 }
 
+/* this is the "pix2pix-turbo" above the process button */
+#description > span{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
 /* this is the "UNDO_BUTTON, X_BUTTON" */
 div.svelte-1030q2h{
     width: 30px;

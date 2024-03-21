@@ -209,6 +209,7 @@ async () => {
 """
 
 with gr.Blocks(css="style.css") as demo:
+    """
     gr.Markdown("# Pix2pix-Turbo: **Sketch**", elem_id="description")
     gr.Markdown(
         "**Paper:** One-Step Image Translation with Text-to-Image Models",
@@ -217,6 +218,48 @@ with gr.Blocks(css="style.css") as demo:
     gr.Markdown(
         "**GitHub:** https://github.com/GaParmar/img2img-turbo", elem_id="github"
     )
+    """
+    # gr.Markdown("## One-Step Image Translation with Text-to-Image Models", elem_id="paper_name")
+
+    gr.HTML(
+        """
+        <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+            <div>
+                <h2><a href="https://github.com/GaParmar/img2img-turbo">One-Step Image Translation with Text-to-Image Models</a></h2>
+                <div>
+                    <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+                        <a href='https://gauravparmar.com/'>Gaurav Parmar, </a>
+                        &nbsp;
+                        <a href='https://taesung.me/'> Taesung Park,</a>
+                        &nbsp;
+                        <a href='https://www.cs.cmu.edu/~srinivas/'>Srinivasa Narasimhan, </a>
+                        &nbsp;
+                        <a href='https://www.cs.cmu.edu/~junyanz/'> Jun-Yan Zhu </a>
+                    </div>
+                </div>
+                </br>
+                <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+                    <a href='https://arxiv.org/abs/2403.12036'>
+                        <img src="https://img.shields.io/badge/arXiv-2403.12036-red">
+                    </a>
+                    &nbsp;
+                    <a href='https://github.com/GaParmar/img2img-turbo'>
+                        <img src='https://img.shields.io/badge/github-%23121011.svg'>
+                    </a>
+                    &nbsp;
+                    <a href='https://github.com/GaParmar/img2img-turbo/blob/main/LICENSE'>
+                        <img src='https://img.shields.io/badge/license-MIT-lightgrey'>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div>
+        </br>
+        </div>
+        """
+    )
+
+
     # these are hidden buttons that are used to trigger the canvas changes
     line = gr.Checkbox(label="line", value=False, elem_id="cb-line")
     eraser = gr.Checkbox(label="eraser", value=False, elem_id="cb-eraser")
@@ -272,7 +315,7 @@ with gr.Blocks(css="style.css") as demo:
 
             with gr.Row():
                 val_r = gr.Slider(
-                    label="Sketch guidance gamma: ",
+                    label="Sketch guidance: ",
                     show_label=True,
                     minimum=0,
                     maximum=1,
@@ -283,7 +326,8 @@ with gr.Blocks(css="style.css") as demo:
                 seed = gr.Textbox(label="Seed", value=42, scale=1, min_width=50)
                 randomize_seed = gr.Button("Random", scale=1, min_width=50)
 
-        with gr.Column(elem_id="column_process", min_width=50, scale=0.2):
+        with gr.Column(elem_id="column_process", min_width=50, scale=0.4):
+            gr.Markdown("## pix2pix-turbo", elem_id="description")
             run_button = gr.Button("Run", min_width=50)
 
         with gr.Column(elem_id="column_output"):
