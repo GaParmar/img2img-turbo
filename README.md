@@ -16,9 +16,11 @@
 
 We propose a general method for adapting a single-step diffusion model, such as SD-Turbo, to new tasks and domains through adversarial learning. This enables us to leverage the internal knowledge of pre-trained diffusion models while achieving efficient inference (e.g., for 512x512 images, 0.29 seconds on A6000 and 0.11 seconds on A100). 
 
-Our one-step conditional models  **CycleGAN-Turbo** and **pix2pix-turbo** can perform various image-to-image translation tasks for both paired and unpaired settings. CycleGAN-Turbo outperforms existing GAN-based and diffusion-based methods, while pix2pix-Turbo is on par with recent works such as ControlNet for Sketch2Photo and Edge2Image, but with one-step inference. 
+Our one-step conditional models **CycleGAN-Turbo** and **pix2pix-turbo** can perform various image-to-image translation tasks for both unpaired and paired settings. CycleGAN-Turbo outperforms existing GAN-based and diffusion-based methods, while pix2pix-turbo is on par with recent works such as ControlNet for Sketch2Photo and Edge2Image, but with one-step inference. 
 
-
+[One-Step Image Translation with Text-to-Image Models](https://arxiv.org/abs/2403.12036)<br>
+[Gaurav Parmar](https://gauravparmar.com/), [Taesung Park](https://taesung.me/), [Srinivasa Narasimhan](https://www.cs.cmu.edu/~srinivas/), [Jun-Yan Zhu](https://github.com/junyanz/)<br>
+CMU and Adobe, arXiv 2403.12036
 
 <br>
 <div>
@@ -26,6 +28,7 @@ Our one-step conditional models  **CycleGAN-Turbo** and **pix2pix-turbo** can pe
 <img src='assets/teaser_results.jpg' align="center" width=1000px>
 </p>
 </div>
+
 
 
 
