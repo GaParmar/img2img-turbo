@@ -4,7 +4,7 @@ We will use the [Fill50k dataset](https://github.com/lllyasviel/ControlNet/blob/
 
 
 ### Step 1. Get the Dataset
-- First download the Fill50k dataset from [here](https://huggingface.co/lllyasviel/ControlNet/blob/main/training/fill50k.zip).
+- First download a modified Fill50k dataset from [here](https://www.cs.cmu.edu/~img2img-turbo/data/my_fill50k.zip) using the command below.
     ```
     bash scripts/download_fill50k.sh
     ```
