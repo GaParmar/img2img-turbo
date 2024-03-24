@@ -166,3 +166,6 @@ checkpoints/
 img2img-turbo-sketch
 outputs/
 outputs/bird.png
+data
+wandb
+output/

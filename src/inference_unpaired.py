@@ -15,7 +15,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # initialize the model
-    model = CycleGAN_Turbo(args.model_name)
+    model = CycleGAN_Turbo(pretrained_name=args.model_name)
 
     if args.image_prep == "resize_512x512":
         T_val = transforms.Compose([
@@ -28,7 +28,7 @@ if __name__ == "__main__":
     # translate the image
     with torch.no_grad():
         x_t = T_val(input_image).unsqueeze(0).cuda()
-        output = model(x_t, direction="a2b")
+        output = model(x_t)
 
     output_pil = transforms.ToPILImage()(output[0].cpu() * 0.5 + 0.5)
     output_pil = output_pil.resize((input_image.width, input_image.height), Image.LANCZOS)
