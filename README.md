@@ -192,8 +192,8 @@ We tightly integrate three separate modules in the original latent diffusion mod
         --input_image "assets/examples/rainy2clear_input.png" --output_dir "outputs"
     ```
     <table>
-    <th>Input (clear)</th>
-    <th>Model Output (rainy)</th>
+    <th>Input (rainy)</th>
+    <th>Model Output (clear)</th>
     </tr>
     <tr>
     <td><img src='assets/examples/rainy2clear_input.png' width="400px"></td>
