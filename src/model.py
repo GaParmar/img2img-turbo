@@ -1,3 +1,6 @@
+import os
+import requests
+from tqdm import tqdm
 from diffusers import DDPMScheduler
 
 
@@ -49,3 +52,22 @@ def my_vae_decoder_fwd(self, sample, latent_embeds=None):
     sample = self.conv_act(sample)
     sample = self.conv_out(sample)
     return sample
+
+
+def download_url(url, outf):
+    if not os.path.exists(outf):
+        print(f"Downloading checkpoint to {outf}")
+        response = requests.get(url, stream=True)
+        total_size_in_bytes = int(response.headers.get('content-length', 0))
+        block_size = 1024  # 1 Kibibyte
+        progress_bar = tqdm(total=total_size_in_bytes, unit='iB', unit_scale=True)
+        with open(outf, 'wb') as file:
+            for data in response.iter_content(block_size):
+                progress_bar.update(len(data))
+                file.write(data)
+        progress_bar.close()
+        if total_size_in_bytes != 0 and progress_bar.n != total_size_in_bytes:
+            print("ERROR, something went wrong")
+        print(f"Downloaded successfully to {outf}")
+    else:
+        print(f"Skipping download, {outf} already exists")

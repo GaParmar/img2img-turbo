@@ -171,6 +171,38 @@ We tightly integrate three separate modules in the original latent diffusion mod
     </tr>
     </table>
 
+- The following command takes a **clear** image file as input, and saves the output **rainy** in the directory specified.
+    ```
+    python src/inference_unpaired.py --model "clear_to_rainy" \
+        --input_image "assets/examples/clear2rainy_input.png" --output_dir "outputs"
+    ```
+    <table>
+    <th>Input (clear)</th>
+    <th>Model Output (rainy)</th>
+    </tr>
+    <tr>
+    <td><img src='assets/examples/clear2rainy_input.png' width="400px"></td>
+    <td><img src='assets/examples/clear2rainy_output.png' width="400px"></td>
+    </tr>
+    </table>
+
+- The following command takes a **rainy** image file as input, and saves the output **clear** in the directory specified.
+    ```
+    python src/inference_unpaired.py --model "rainy_to_clear" \
+        --input_image "assets/examples/rainy2clear_input.png" --output_dir "outputs"
+    ```
+    <table>
+    <th>Input (clear)</th>
+    <th>Model Output (rainy)</th>
+    </tr>
+    <tr>
+    <td><img src='assets/examples/rainy2clear_input.png' width="400px"></td>
+    <td><img src='assets/examples/rainy2clear_output.png' width="400px"></td>
+    </tr>
+    </table>
+
+
+
 ## Gradio Demo
 - We provide a Gradio demo for the paired image translation tasks.
 - The following command will launch the sketch to image locally using gradio.

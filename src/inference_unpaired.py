@@ -16,6 +16,7 @@ if __name__ == "__main__":
 
     # initialize the model
     model = CycleGAN_Turbo(pretrained_name=args.model_name)
+    model.unet.enable_xformers_memory_efficient_attention()
 
     if args.image_prep == "resize_512x512":
         T_val = transforms.Compose([
