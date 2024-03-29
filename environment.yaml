@@ -13,7 +13,7 @@ dependencies:
       - pillow>=9.5.0
       - scipy==1.11.1
       - timm>=0.9.2
-      - tokenizers==0.12.1
+      - tokenizers
       - torch>=2.0.1
 
       - torchaudio>=2.0.2
