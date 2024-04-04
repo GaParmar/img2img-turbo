@@ -99,8 +99,12 @@ We tightly integrate three separate modules in the original latent diffusion mod
   ```
   conda activate img2img-turbo
   ```
-
-
+- Or use virtual environment:
+  ```
+  python3 -m venv venv
+  source venv/bin/activate
+  pip install -r requirements.txt
+  ```
 **Paired Image Translation (pix2pix-turbo)**
 - The following command takes an image file and a prompt as inputs, extracts the canny edges, and saves the results in the directory specified.
     ```bash
