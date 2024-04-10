@@ -25,6 +25,8 @@ if __name__ == "__main__":
     if args.model_name == '' != args.model_path == '':
         raise ValueError('Either model_name or model_path should be provided')
 
+    os.makedirs(args.output_dir, exist_ok=True)
+
     # initialize the model
     model = Pix2Pix_Turbo(pretrained_name=args.model_name, pretrained_path=args.model_path)
     model.set_eval()
@@ -60,5 +62,4 @@ if __name__ == "__main__":
         output_pil = transforms.ToPILImage()(output_image[0].cpu() * 0.5 + 0.5)
 
     # save the output image
-    os.makedirs(args.output_dir, exist_ok=True)
     output_pil.save(os.path.join(args.output_dir, bname))

@@ -143,7 +143,7 @@ We tightly integrate three separate modules in the original latent diffusion mod
 **Unpaired Image Translation (CycleGAN-Turbo)**
 - The following command takes a **day** image file as input, and saves the output **night** in the directory specified.
     ```
-    python src/inference_unpaired.py --model "day_to_night" \
+    python src/inference_unpaired.py --model_name "day_to_night" \
         --input_image "assets/examples/day2night_input.png" --output_dir "outputs"
     ```
     <table>
@@ -158,7 +158,7 @@ We tightly integrate three separate modules in the original latent diffusion mod
 
 - The following command takes a **night** image file as input, and saves the output **day** in the directory specified.
     ```
-    python src/inference_unpaired.py --model "night_to_day" \
+    python src/inference_unpaired.py --model_name "night_to_day" \
         --input_image "assets/examples/night2day_input.png" --output_dir "outputs"
     ```
     <table>
@@ -173,7 +173,7 @@ We tightly integrate three separate modules in the original latent diffusion mod
 
 - The following command takes a **clear** image file as input, and saves the output **rainy** in the directory specified.
     ```
-    python src/inference_unpaired.py --model "clear_to_rainy" \
+    python src/inference_unpaired.py --model_name "clear_to_rainy" \
         --input_image "assets/examples/clear2rainy_input.png" --output_dir "outputs"
     ```
     <table>
@@ -188,7 +188,7 @@ We tightly integrate three separate modules in the original latent diffusion mod
 
 - The following command takes a **rainy** image file as input, and saves the output **clear** in the directory specified.
     ```
-    python src/inference_unpaired.py --model "rainy_to_clear" \
+    python src/inference_unpaired.py --model_name "rainy_to_clear" \
         --input_image "assets/examples/rainy2clear_input.png" --output_dir "outputs"
     ```
     <table>

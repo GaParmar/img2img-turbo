@@ -21,7 +21,7 @@ import wandb
 from cleanfid.fid import get_folder_features, build_feature_extractor, fid_from_feats
 
 from pix2pix_turbo import Pix2Pix_Turbo
-from utils.training_utils import parse_args_paired_training, PairedDataset
+from my_utils.training_utils import parse_args_paired_training, PairedDataset
 
 
 def main(args):
