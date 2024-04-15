@@ -1,7 +1,7 @@
 # img2img-turbo
 
-[**Paper**](https://arxiv.org/abs/2403.12036) | [**Sketch2Image Demo**](https://huggingface.co/spaces/gparmar/img2img-turbo-sketch)
-#### **Quick start:** [**Running Locally**](#getting-started) | [**Gradio (locally hosted)**](#gradio-demo)
+[**Paper**](https://arxiv.org/abs/2403.12036) | [**Sketch2Image Demo**](https://huggingface.co/spaces/gparmar/img2img-turbo-sketch) 
+#### **Quick start:** [**Running Locally**](#getting-started) | [**Gradio (locally hosted)**](#gradio-demo) | [**Training**](#training-with-your-own-data)
 
 ### Cat Sketching
 <p align="left" >
@@ -213,6 +213,15 @@ We tightly integrate three separate modules in the original latent diffusion mod
     ```
     gradio gradio_sketch2image.py
     ```
+- The following command will launch the canny edge to image gradio demo locally.
+   ```
+    gradio gradio_canny2image.py
+   ```
+
+
+## Training with your own data
+- See the steps [here](docs/training_pix2pix_turbo.md) for training a pix2pix-turbo model on your paired data.
+- See the steps [here](docs/training_cyclegan_turbo.md) for training a CycleGAN-Turbo model on your unpaired data.
 
 
 ## Acknowledgment
