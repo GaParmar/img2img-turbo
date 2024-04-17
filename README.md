@@ -1,7 +1,7 @@
 # img2img-turbo
 
 [**Paper**](https://arxiv.org/abs/2403.12036) | [**Sketch2Image Demo**](https://huggingface.co/spaces/gparmar/img2img-turbo-sketch) 
-#### **Quick start:** [**Running Locally**](#getting-started) | [**Running Inside Docker**](#running-inside-docker) | [**Gradio (locally hosted)**](#gradio-demo)
+#### **Quick start:** [**Running Locally**](#getting-started) | [**Running Inside Docker**](#running-through-docker) | [**Gradio (locally hosted)**](#gradio-demo)
 
 ### Cat Sketching
 <p align="left" >
@@ -112,7 +112,7 @@ We tightly integrate three separate modules in the original latent diffusion mod
 python scripts/verify_installation.py
 ```
 
-## Running In Docker
+## Running Through Docker
 
 **Requirenments**
 
