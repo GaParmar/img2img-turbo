@@ -1,7 +1,7 @@
 # img2img-turbo
 
 [**Paper**](https://arxiv.org/abs/2403.12036) | [**Sketch2Image Demo**](https://huggingface.co/spaces/gparmar/img2img-turbo-sketch) 
-#### **Quick start:** [**Running Locally**](#getting-started) | [**Running Inside Docker**](#running-through-docker) | [**Gradio (locally hosted)**](#gradio-demo)
+#### **Quick start:** [**Running Locally**](#getting-started) | [**Running Through Docker**](#running-through-docker) | [**Gradio (locally hosted)**](#gradio-demo)
 
 ### Cat Sketching
 <p align="left" >
@@ -118,13 +118,10 @@ python scripts/verify_installation.py
 
 - Ubuntu (tested on 22.04) or WSL 2
 - NVIDIA GPU (tested on 12 GB VRAM)
-- NVIDIA GPU drivers
-- Conda (Miniconda)
-- Docker Engine (Docker Desktop)
 
 **Steps**
 
-- Install the NVIDIA Container Toolkit for NVIDIA GPU Support if you haven't [https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html]
+- Install [the NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) for NVIDIA GPU Support if you haven't
 - Build docker image. It takes ~10 min amount of time.
 ```
 sudo docker build -t img2img-turbo-smoke-docker .
