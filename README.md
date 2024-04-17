@@ -1,7 +1,7 @@
 # img2img-turbo
 
 [**Paper**](https://arxiv.org/abs/2403.12036) | [**Sketch2Image Demo**](https://huggingface.co/spaces/gparmar/img2img-turbo-sketch) 
-#### **Quick start:** [**Running Locally**](#getting-started) | [**Gradio (locally hosted)**](#gradio-demo) | [**Training**](#training-with-your-own-data)
+#### **Quick start:** [**Running Locally**](#getting-started) | [**Running Inside Docker**](#running-inside-docker) | [**Gradio (locally hosted)**](#gradio-demo)
 
 ### Cat Sketching
 <p align="left" >
@@ -105,6 +105,54 @@ We tightly integrate three separate modules in the original latent diffusion mod
   source venv/bin/activate
   pip install -r requirements.txt
   ```
+
+- You can verify your installation through running the following script (make sure you activate the environment).
+
+```
+python scripts/verify_installation.py
+```
+
+## Running In Docker
+
+**Requirenments**
+
+- Ubuntu (tested on 22.04) or WSL 2
+- NVIDIA GPU (tested on 12 GB VRAM)
+- NVIDIA GPU drivers
+- Conda (Miniconda)
+- Docker Engine (Docker Desktop)
+
+**Steps**
+
+- Install the NVIDIA Container Toolkit for NVIDIA GPU Support if you haven't [https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html]
+- Build docker image. It takes ~10 min amount of time.
+```
+sudo docker build -t img2img-turbo-smoke-docker .
+```
+- Run Docker Container through command with GPU support.
+
+```
+sudo docker run -p 127.0.0.1:7860:7860 --gpus all -it img2img-turbo-smoke-docker /bin/bash
+```
+
+- Activate conda environment inside docker container.
+
+```
+conda activate img2img-turbo
+```
+
+- Run server inside docker container. It will take ~10 min.
+
+```
+gradio gradio_sketch2image.py
+```
+
+or
+
+```
+gradio gradio_canny2image.py
+```
+
 **Paired Image Translation (pix2pix-turbo)**
 - The following command takes an image file and a prompt as inputs, extracts the canny edges, and saves the results in the directory specified.
     ```bash
