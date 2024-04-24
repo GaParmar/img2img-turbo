@@ -126,6 +126,14 @@ python scripts/verify_installation.py
 ```
 sudo docker build -t img2img-turbo-smoke-docker .
 ```
+
+or
+
+- Pull Docker ready-made image from [DockerHub repository](https://hub.docker.com/r/sooqija/img2img-turbo).
+```
+docker pull sooqija/img2img-turbo
+```
+
 - Run Docker Container through command with GPU support.
 
 ```
