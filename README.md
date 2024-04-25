@@ -123,7 +123,8 @@ python scripts/verify_installation.py
 **Steps**
 
 - *Ubuntu only*: Install [the NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) for NVIDIA GPU Support if you haven't
-- You can build docker image or pull it. \
+- You can build docker image or pull it.
+
 If you chose building, run (~10 min):
 ```
 sudo docker build -t <your_name_of_the_image> .
