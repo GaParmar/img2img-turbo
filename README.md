@@ -116,46 +116,41 @@ python scripts/verify_installation.py
 
 **Requirenments**
 
-- Ubuntu (tested on 22.04) or WSL 2
 - NVIDIA GPU (tested on 12 GB VRAM)
+
+### Build Image
 
 **Steps**
 
-- Install [the NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) for NVIDIA GPU Support if you haven't
-- Build docker image. It takes ~10 min amount of time.
+- *Ubuntu only*: Install [the NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) for NVIDIA GPU Support if you haven't
+- You can build docker image or pull it. \
+If you chose building, run (~10 min):
 ```
-sudo docker build -t img2img-turbo-smoke-docker .
+sudo docker build -t <your_name_of_the_image> .
 ```
 
-or
-
-- Pull Docker ready-made image from [DockerHub repository](https://hub.docker.com/r/sooqija/img2img-turbo).
+If you chose pulling, run (~10 min):
 ```
 docker pull sooqija/img2img-turbo
 ```
+It will pull ready-made docker image from [DockerHub repository](https://hub.docker.com/r/sooqija/img2img-turbo).
 
-- Run Docker Container through command with GPU support.
+- Run Docker Container with GPU support:
 
 ```
-sudo docker run -p 127.0.0.1:7860:7860 --gpus all -it img2img-turbo-smoke-docker /bin/bash
+sudo docker run -p 127.0.0.1:7860:7860 --gpus all -it img2img-turbo-smoke-docker
 ```
 
-- Activate conda environment inside docker container.
+- Activate conda environment inside docker container:
 
 ```
 conda activate img2img-turbo
 ```
 
-- Run server inside docker container. It will take ~10 min.
+- Run server inside docker container (~10 min).
 
 ```
 gradio gradio_sketch2image.py
-```
-
-or
-
-```
-gradio gradio_canny2image.py
 ```
 
 **Paired Image Translation (pix2pix-turbo)**
