@@ -118,8 +118,6 @@ python scripts/verify_installation.py
 
 - NVIDIA GPU (tested on 12 GB VRAM)
 
-### Build Image
-
 **Steps**
 
 - *Ubuntu only*: Install [the NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) for NVIDIA GPU Support if you haven't
