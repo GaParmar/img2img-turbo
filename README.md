@@ -139,7 +139,7 @@ It will pull ready-made docker image from [DockerHub repository](https://hub.doc
 - Run Docker Container with GPU support:
 
 ```
-sudo docker run -p 127.0.0.1:7860:7860 --gpus all -it img2img-turbo-smoke-docker
+sudo docker run -p 127.0.0.1:7860:7860 --gpus all -it <your_name_of_the_image>
 ```
 
 - Activate conda environment inside docker container:
