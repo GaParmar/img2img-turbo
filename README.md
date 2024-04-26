@@ -15,9 +15,9 @@
 - *Ubuntu only*: Install [the NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) for NVIDIA GPU support if you haven't
 - You can build docker image or pull it.
 
-If you chose building, run (~10 min):
+If you chose building, run (~30 min):
 ```
-sudo docker build -t <your_name_of_the_image> .
+docker build -t <your_name_of_the_image> .
 ```
 
 If you chose pulling, run (~10 min):
@@ -29,20 +29,17 @@ It will pull ready-made docker image from [DockerHub repository](https://hub.doc
 - Run Docker Container with GPU support:
 
 ```
-sudo docker run -p 127.0.0.1:7860:7860 --gpus all -it <your_name_of_the_image>
+docker run -p 7860:7860 --gpus all -it <your_name_of_the_image>
 ```
 
-- Activate conda environment inside docker container:
-
-```
-conda activate img2img-turbo
-```
-
-- Run server inside docker container (~10 min).
+- Run server inside docker container:
 
 ```
 gradio gradio_sketch2image.py
 ```
+
+Check for server on http://0.0.0.0:7860.
+
 
 
 ### Cat Sketching
