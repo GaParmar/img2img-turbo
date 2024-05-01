@@ -23,8 +23,14 @@ from my_utils.dino_struct import DinoStructureLoss
 
 
 def main(args):
-    accelerator = Accelerator(gradient_accumulation_steps=args.gradient_accumulation_steps, log_with=args.report_to)
-    set_seed(args.seed)
+    accelerator = Accelerator(
+        gradient_accumulation_steps=args.gradient_accumulation_steps,
+        mixed_precision=args.mixed_precision,
+        log_with=args.report_to,
+    )
+
+    if args.seed is not None:
+        set_seed(args.seed)
 
     if accelerator.is_main_process:
         os.makedirs(os.path.join(args.output_dir, "checkpoints"), exist_ok=True)
@@ -37,9 +43,13 @@ def main(args):
     vae_a2b, vae_lora_target_modules = initialize_vae(args.lora_rank_vae, return_lora_module_names=True)
 
     weight_dtype = torch.float32
+    if accelerator.mixed_precision == "fp16":
+        weight_dtype = torch.float16
+    elif accelerator.mixed_precision == "bf16":
+        weight_dtype = torch.bfloat16
+
     vae_a2b.to(accelerator.device, dtype=weight_dtype)
     text_encoder.to(accelerator.device, dtype=weight_dtype)
-    unet.to(accelerator.device, dtype=weight_dtype)
     text_encoder.requires_grad_(False)
 
     if args.gan_disc_type == "vagan_clip":
@@ -147,6 +157,15 @@ def main(args):
     net_lpips, optimizer_gen, optimizer_disc, train_dataloader, lr_scheduler_gen, lr_scheduler_disc = accelerator.prepare(
         net_lpips, optimizer_gen, optimizer_disc, train_dataloader, lr_scheduler_gen, lr_scheduler_disc
     )
+
+    # Move al networksr to device and cast to weight_dtype
+    unet.to(accelerator.device, dtype=weight_dtype)
+    vae_enc.to(accelerator.device, dtype=weight_dtype)
+    vae_dec.to(accelerator.device, dtype=weight_dtype)
+    net_disc_a.to(accelerator.device, dtype=weight_dtype)
+    net_disc_b.to(accelerator.device, dtype=weight_dtype)
+    net_lpips.to(accelerator.device, dtype=weight_dtype)
+
     if accelerator.is_main_process:
         accelerator.init_trackers(args.tracker_project_name, config=dict(vars(args)))
 
