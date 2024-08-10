@@ -66,7 +66,7 @@ We will use the [horse2zebra dataset](https://github.com/junyanz/pytorch-CycleGA
 - The training script will visualizing the training batch, the training losses, and validation set L2, LPIPS, and FID scores (if specified).
     <div>
         <p align="center">
-        <img src='../assets/examples/training_evaluation.png' align="center" width=800px>
+        <img src='../assets/examples/training_evaluation_unpaired.png' align="center" width=800px>
         </p>
     </div>
 
