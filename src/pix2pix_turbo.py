@@ -198,6 +198,7 @@ class Pix2Pix_Turbo(torch.nn.Module):
             encoded_control = self.vae.encode(c_t).latent_dist.sample() * self.vae.config.scaling_factor
             model_pred = self.unet(encoded_control, self.timesteps, encoder_hidden_states=caption_enc,).sample
             x_denoised = self.sched.step(model_pred, self.timesteps, encoded_control, return_dict=True).prev_sample
+            x_denoised = x_denoised.to(model_pred.dtype)
             self.vae.decoder.incoming_skip_acts = self.vae.encoder.current_down_blocks
             output_image = (self.vae.decode(x_denoised / self.vae.config.scaling_factor).sample).clamp(-1, 1)
         else:
@@ -211,6 +212,7 @@ class Pix2Pix_Turbo(torch.nn.Module):
             unet_output = self.unet(unet_input, self.timesteps, encoder_hidden_states=caption_enc,).sample
             self.unet.conv_in.r = None
             x_denoised = self.sched.step(unet_output, self.timesteps, unet_input, return_dict=True).prev_sample
+            x_denoised = x_denoised.to(unet_output.dtype)
             self.vae.decoder.incoming_skip_acts = self.vae.encoder.current_down_blocks
             self.vae.decoder.gamma = r
             output_image = (self.vae.decode(x_denoised / self.vae.config.scaling_factor).sample).clamp(-1, 1)

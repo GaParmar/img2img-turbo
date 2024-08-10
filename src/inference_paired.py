@@ -19,6 +19,7 @@ if __name__ == "__main__":
     parser.add_argument('--high_threshold', type=int, default=200, help='Canny high threshold')
     parser.add_argument('--gamma', type=float, default=0.4, help='The sketch interpolation guidance amount')
     parser.add_argument('--seed', type=int, default=42, help='Random seed to be used')
+    parser.add_argument('--use_fp16', action='store_true', help='Use Float16 precision for faster inference')
     args = parser.parse_args()
 
     # only one of model_name and model_path should be provided
@@ -30,6 +31,8 @@ if __name__ == "__main__":
     # initialize the model
     model = Pix2Pix_Turbo(pretrained_name=args.model_name, pretrained_path=args.model_path)
     model.set_eval()
+    if args.use_fp16:
+        model.half()
 
     # make sure that the input image is a multiple of 8
     input_image = Image.open(args.input_image).convert('RGB')
@@ -45,6 +48,8 @@ if __name__ == "__main__":
             canny_viz_inv = Image.fromarray(255 - np.array(canny))
             canny_viz_inv.save(os.path.join(args.output_dir, bname.replace('.png', '_canny.png')))
             c_t = F.to_tensor(canny).unsqueeze(0).cuda()
+            if args.use_fp16:
+                c_t = c_t.half()
             output_image = model(c_t, args.prompt)
 
         elif args.model_name == 'sketch_to_image_stochastic':
@@ -53,10 +58,15 @@ if __name__ == "__main__":
             torch.manual_seed(args.seed)
             B, C, H, W = c_t.shape
             noise = torch.randn((1, 4, H // 8, W // 8), device=c_t.device)
+            if args.use_fp16:
+                c_t = c_t.half()
+                noise = noise.half()
             output_image = model(c_t, args.prompt, deterministic=False, r=args.gamma, noise_map=noise)
 
         else:
             c_t = F.to_tensor(input_image).unsqueeze(0).cuda()
+            if args.use_fp16:
+                c_t = c_t.half()
             output_image = model(c_t, args.prompt)
 
         output_pil = transforms.ToPILImage()(output_image[0].cpu() * 0.5 + 0.5)
