@@ -16,6 +16,7 @@ if __name__ == "__main__":
     parser.add_argument('--output_dir', type=str, default='output', help='the directory to save the output')
     parser.add_argument('--image_prep', type=str, default='resize_512x512', help='the image preparation method')
     parser.add_argument('--direction', type=str, default=None, help='the direction of translation. None for pretrained models, a2b or b2a for custom paths.')
+    parser.add_argument('--use_fp16', action='store_true', help='Use Float16 precision for faster inference')
     args = parser.parse_args()
 
     # only one of model_name and model_path should be provided
@@ -33,6 +34,8 @@ if __name__ == "__main__":
     model = CycleGAN_Turbo(pretrained_name=args.model_name, pretrained_path=args.model_path)
     model.eval()
     model.unet.enable_xformers_memory_efficient_attention()
+    if args.use_fp16:
+        model.half()
 
     T_val = build_transform(args.image_prep)
 
@@ -42,6 +45,8 @@ if __name__ == "__main__":
         input_img = T_val(input_image)
         x_t = transforms.ToTensor()(input_img)
         x_t = transforms.Normalize([0.5], [0.5])(x_t).unsqueeze(0).cuda()
+        if args.use_fp16:
+            x_t = x_t.half()
         output = model(x_t, direction=args.direction, caption=args.prompt)
 
     output_pil = transforms.ToPILImage()(output[0].cpu() * 0.5 + 0.5)
