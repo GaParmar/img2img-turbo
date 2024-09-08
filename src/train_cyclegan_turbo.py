@@ -208,6 +208,7 @@ def main(args):
                 optimizer_gen.step()
                 lr_scheduler_gen.step()
                 optimizer_gen.zero_grad()
+                optimizer_disc.zero_grad()
 
                 """
                 Identity Objective
