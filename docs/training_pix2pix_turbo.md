@@ -54,7 +54,7 @@ We will use the [Fill50k dataset](https://github.com/lllyasviel/ControlNet/blob/
         --report_to "wandb" --tracker_project_name "pix2pix_turbo_fill50k"
     ```
 
-- Additional optional flags:
+-  Optional flags:
     - `--track_val_fid`: Track FID score on the validation set using the [Clean-FID](https://github.com/GaParmar/clean-fid) implementation.
     - `--enable_xformers_memory_efficient_attention`: Enable memory-efficient attention in the model.
     - `--viz_freq`: Frequency of visualizing the results during training.

@@ -25,5 +25,5 @@ peft
 dominate
 diffusers==0.25.1
 gradio==3.43.1
-
+wandb
 vision_aided_loss
