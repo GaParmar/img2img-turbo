@@ -91,7 +91,7 @@ We tightly integrate three separate modules in the original latent diffusion mod
 
 ## Getting Started
 **Environment Setup**
-- We provide a [conda env file](environment.yml) that contains all the required dependencies.
+- We provide a [conda env file](environment.yaml) that contains all the required dependencies.
     ```
     conda env create -f environment.yaml
     ```
