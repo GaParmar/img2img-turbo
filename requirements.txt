@@ -1,4 +1,5 @@
 clip @ git+https://github.com/openai/CLIP.git
+flash-attn==2.8.0.post2
 einops
 numpy
 open-clip-torch

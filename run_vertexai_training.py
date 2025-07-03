@@ -9,7 +9,7 @@ from google.cloud import aiplatform
 from src import constants
 
 TENSORBOARD_NAME = 'CycleGANTurboTensorboard'
-TENSORBOARD_RESOURCE_NAME = 'projects/437403722141/locations/us-central1/tensorboards/3986569677571620864'
+TENSORBOARD_RESOURCE_NAME = 'projects/437403722141/locations/us-central1/tensorboards/397649375301468160'
 
 def create_tensorboard():
     tensorboard = aiplatform.Tensorboard.create(
@@ -37,27 +37,22 @@ if __name__=="__main__":
         location=constants.LOCATION
     )
 
-    job_args = ['--dataroot', f'/gcs/{constants.VERTEX_AI_BUCKET_NAME}/cyclegan_synthetic_to_real_silhouettes_dataset/{args.dataset_name}',
-                '--dataset_mode', 'unaligned',
-                '--checkpoints_dir',
-                f'/gcs/{constants.VERTEX_AI_BUCKET_NAME}/cyclegan_turbo_checkpoints',
-                '--name',
-                args.experiment_name,
-                '--load_size', '352',
-                '--crop_size', '320',
-                '--save_latest_freq', '4000',
-                '--save_epoch_freq', '1',
-                '--display_freq', '400',
-                '--update_html_freq', '1000',
-                '--print_freq', '100',
-                '--display_id', '-1',
-                '--n_epochs', f'{args.n_epochs}',
-                '--n_epochs_decay', f'{args.n_epochs}',
-                '--batch_size', '16',
-                '--num_threads', '16',
-                '--gpu_ids', '0,1',
-                '--output_nc', '1',
-                '--input_nc', '1']
+    job_args = ['--pretrained_model_name_or_path', 'stabilityai/sd-turbo',
+                '--output_dir', f'/gcs/{constants.VERTEX_AI_BUCKET_NAME}/cyclegan_turbo_checkpoints/{args.experiment_name}',
+                '--dataset_folder', f'/gcs/{constants.VERTEX_AI_BUCKET_NAME}/cyclegan_synthetic_to_real_silhouettes_dataset/{args.dataset_name}',
+                '--train_img_prep', 'resize_286_randomcrop_256x256_hflip',
+                '--val_img_prep', 'resize_286_randomcrop_256x256_hflip',
+                '--learning_rate', '1e-5',
+                '--max_train_epochs', str(args.n_epochs),
+                '--dataloader_num_workers', '8',
+                '--train_batch_size', '4',
+                '--gradient_accumulation_steps', '1',
+                '--report_to', 'wandb',
+                '--tracker_project_name', 'cyclegan_turbo_unpaired_synthetic_to_real_silhouettes_debug',
+                '--enable_xformers_memory_efficient_attention',
+                '--lambda_gan', '0.5',
+                '--lambda_idt', '1',
+                '--lambda_cycle', '1']
 
     model = job.run(args=job_args,
                     replica_count=1,
