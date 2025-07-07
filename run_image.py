@@ -13,7 +13,7 @@ def build():
     print(f"Building Docker image")
     dockerfile_path = os.path.join(SCRIPT_DIR, "app", "Dockerfile")
 
-    docker_build_cmd = ["docker", "build", "--tag", constants.IMAGE_NAME, "-f", dockerfile_path]
+    docker_build_cmd = ["docker", "build", "--build-arg", "WANDB_API_KEY=" + os.environ['WANDB_API_KEY'], "--tag", constants.IMAGE_NAME, "-f", dockerfile_path]
     docker_build_cmd.append(SCRIPT_DIR)
     print(' '.join(docker_build_cmd))
     subprocess.check_call(docker_build_cmd)
