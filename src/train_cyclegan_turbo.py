@@ -336,12 +336,19 @@ def main(args):
                                 dino_ssim = net_dino.calculate_global_ssim_loss(a, b).item()
                                 l_dino_scores_a2b.append(dino_ssim)
                         dino_score_a2b = np.mean(l_dino_scores_a2b)
-                        gen_features = get_folder_features(fid_output_dir, model=feat_model, num_workers=0, num=None,
-                            shuffle=False, seed=0, batch_size=8, device=torch.device("cuda"),
-                            mode="clean", custom_fn_resize=None, description="", verbose=True,
-                            custom_image_tranform=None)
-                        ed_mu, ed_sigma = np.mean(gen_features, axis=0), np.cov(gen_features, rowvar=False)
-                        score_fid_a2b = frechet_distance(a2b_ref_mu, a2b_ref_sigma, ed_mu, ed_sigma)
+                        try:
+                            gen_features = get_folder_features(fid_output_dir, model=feat_model, num_workers=0,
+                                                               num=None,
+                                                               shuffle=False, seed=0, batch_size=8,
+                                                               device=torch.device("cuda"),
+                                                               mode="clean", custom_fn_resize=None, description="",
+                                                               verbose=True,
+                                                               custom_image_tranform=None)
+                            ed_mu, ed_sigma = np.mean(gen_features, axis=0), np.cov(gen_features, rowvar=False)
+                            score_fid_a2b = frechet_distance(a2b_ref_mu, a2b_ref_sigma, ed_mu, ed_sigma)
+                        except Exception as e:
+                            print(f"Failed to compute FID for A->B, setting score to 1000: {e}")
+                            score_fid_a2b = 1000
                         print(f"step={global_step}, fid(a2b)={score_fid_a2b:.2f}, dino(a2b)={dino_score_a2b:.3f}")
 
                         """
@@ -368,12 +375,19 @@ def main(args):
                                 dino_ssim = net_dino.calculate_global_ssim_loss(a, b).item()
                                 l_dino_scores_b2a.append(dino_ssim)
                         dino_score_b2a = np.mean(l_dino_scores_b2a)
-                        gen_features = get_folder_features(fid_output_dir, model=feat_model, num_workers=0, num=None,
-                            shuffle=False, seed=0, batch_size=8, device=torch.device("cuda"),
-                            mode="clean", custom_fn_resize=None, description="", verbose=True,
-                            custom_image_tranform=None)
-                        ed_mu, ed_sigma = np.mean(gen_features, axis=0), np.cov(gen_features, rowvar=False)
-                        score_fid_b2a = frechet_distance(b2a_ref_mu, b2a_ref_sigma, ed_mu, ed_sigma)
+                        try:
+                            gen_features = get_folder_features(fid_output_dir, model=feat_model, num_workers=0,
+                                                               num=None,
+                                                               shuffle=False, seed=0, batch_size=8,
+                                                               device=torch.device("cuda"),
+                                                               mode="clean", custom_fn_resize=None, description="",
+                                                               verbose=True,
+                                                               custom_image_tranform=None)
+                            ed_mu, ed_sigma = np.mean(gen_features, axis=0), np.cov(gen_features, rowvar=False)
+                            score_fid_b2a = frechet_distance(b2a_ref_mu, b2a_ref_sigma, ed_mu, ed_sigma)
+                        except Exception as e:
+                            print(f"Failed to compute FID for B->A, setting score to 1000: {e}")
+                            score_fid_b2a = 1000
                         print(f"step={global_step}, fid(b2a)={score_fid_b2a}, dino(b2a)={dino_score_b2a:.3f}")
                         logs["val/fid_a2b"], logs["val/fid_b2a"] = score_fid_a2b, score_fid_b2a
                         logs["val/dino_struct_a2b"], logs["val/dino_struct_b2a"] = dino_score_a2b, dino_score_b2a
