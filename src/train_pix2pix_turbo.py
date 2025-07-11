@@ -292,7 +292,11 @@ def main(args):
                             curr_stats = get_folder_features(os.path.join(args.output_dir, "eval", f"fid_{global_step}"), model=feat_model, num_workers=0, num=None,
                                     shuffle=False, seed=0, batch_size=8, device=torch.device("cuda"),
                                     mode="clean", custom_image_tranform=fn_transform, description="", verbose=True)
-                            fid_score = fid_from_feats(ref_stats, curr_stats)
+                            try:
+                                fid_score = fid_from_feats(ref_stats, curr_stats)
+                            except Exception as e:
+                                print(f"Error computing FID, setting to 1000: {e}")
+                                fid_score = 1000
                             logs["val/clean_fid"] = fid_score
                         logs["val/l2"] = np.mean(l_l2)
                         logs["val/lpips"] = np.mean(l_lpips)

@@ -5,7 +5,7 @@ numpy
 open-clip-torch
 opencv-python
 pillow
-scipy
+scipy==1.11.1
 timm
 tokenizers==0.21.2
 torch

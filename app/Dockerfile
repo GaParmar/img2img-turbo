@@ -28,4 +28,4 @@ COPY ./src ./src
 ARG WANDB_API_KEY
 ENV WANDB_API_KEY=$WANDB_API_KEY
 ENV NCCL_P2P_DISABLE=1
-ENTRYPOINT ["accelerate", "launch", "--main_process_port", "29501", "src/train_cyclegan_turbo.py"]
+ENTRYPOINT ["python", "main.py"]

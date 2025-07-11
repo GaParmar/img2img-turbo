@@ -283,8 +283,8 @@ class PairedDataset(torch.utils.data.Dataset):
         should be compatible with the models intended to be used with this dataset.
         """
         img_name = self.img_names[idx]
-        input_img = Image.open(os.path.join(self.input_folder, img_name))
-        output_img = Image.open(os.path.join(self.output_folder, img_name))
+        input_img = Image.open(os.path.join(self.input_folder, img_name)).convert('RGB')
+        output_img = Image.open(os.path.join(self.output_folder, img_name)).convert('RGB')
         caption = self.captions[img_name]
 
         # input images scaled to 0,1

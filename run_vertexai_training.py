@@ -20,6 +20,7 @@ def create_tensorboard():
 if __name__=="__main__":
     parser = argparse.ArgumentParser(description='Run Vertex AI training job')
     parser.add_argument("image", type=str, help='Docker image SHA')
+    parser.add_argument("--type", choices=['cyclegan', 'pix2pix'], required=True, help='Type of model to train')
     parser.add_argument("--experiment_name", type=str, required=True, help='Name of experiment')
     parser.add_argument("--dataset_name", type=str, required=True, help='Name of dataset to train on')
     parser.add_argument("--n_epochs", default=25, type=int, help='Number of training epochs to run')
@@ -37,24 +38,32 @@ if __name__=="__main__":
         location=constants.LOCATION
     )
 
-    job_args = ['--pretrained_model_name_or_path', 'stabilityai/sd-turbo',
+    job_args = [args.type,
+                '--pretrained_model_name_or_path', 'stabilityai/sd-turbo',
                 '--output_dir', f'/gcs/{constants.VERTEX_AI_BUCKET_NAME}/cyclegan_turbo_checkpoints/{args.experiment_name}',
                 '--dataset_folder', f'/gcs/{constants.VERTEX_AI_BUCKET_NAME}/cyclegan_synthetic_to_real_silhouettes_dataset/{args.dataset_name}',
-                '--train_img_prep', 'resize_286_randomcrop_256x256_hflip',
-                '--val_img_prep', 'resize_256x256',
-                '--learning_rate', '1e-5',
                 '--max_train_steps', '25000',
-                '--max_train_epochs', str(args.n_epochs),
-                '--validation_steps', '250',
                 '--dataloader_num_workers', '8',
                 '--train_batch_size', '2',
                 '--gradient_accumulation_steps', '1',
                 '--report_to', 'wandb',
-                '--tracker_project_name', 'cyclegan_turbo_unpaired_synthetic_to_real_silhouettes_debug',
-                '--enable_xformers_memory_efficient_attention',
-                '--lambda_gan', '0.5',
-                '--lambda_idt', '1',
-                '--lambda_cycle', '1']
+                '--tracker_project_name', args.experiment_name,
+                '--viz_freq', '25',
+                '--enable_xformers_memory_efficient_attention']
+
+    if args.type == 'cyclegan':
+        job_args.extend(['--max_train_epochs', str(args.n_epochs),
+                         '--validation_steps', '250',
+                         '--learning_rate', '1e-5',
+                         '--train_img_prep', 'resize_286_randomcrop_256x256_hflip',
+                         '--val_img_prep', 'resize_256x256',
+                         '--lambda_gan', '0.5',
+                         '--lambda_idt', '1',
+                         '--lambda_cycle', '1'])
+    else:
+        job_args.extend(['--num_training_epochs', str(args.n_epochs),
+                         '--resolution', '512',
+                         '--track_val_fid'])
 
     model = job.run(args=job_args,
                     replica_count=1,
