@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+google-cloud-aiplatform = "*"
+google-cloud = "*"
+torch = "*"
+torchvision = "*"
+pillow = "*"
+transformers = "*"
+diffusers = "*"
+peft = "*"
+accelerate = "*"
+tqdm = "*"
+safetensors = "*"
+numpy = "==1.26.4"
+opencv-python = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
+python_full_version = "3.10.14"
