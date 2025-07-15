@@ -134,6 +134,10 @@ class Pix2Pix_Turbo(torch.nn.Module):
             for k in sd["state_dict_unet"]:
                 _sd_unet[k] = sd["state_dict_unet"][k]
             unet.load_state_dict(_sd_unet)
+            self.lora_rank_unet = sd["rank_unet"]
+            self.lora_rank_vae = sd["rank_vae"]
+            self.target_modules_vae = sd["vae_lora_target_modules"]
+            self.target_modules_unet = sd["unet_lora_target_modules"]
 
         elif pretrained_name is None and pretrained_path is None:
             print("Initializing model with random weights")
