@@ -64,7 +64,9 @@ if __name__ == "__main__":
             output_image = model(c_t, args.prompt, deterministic=False, r=args.gamma, noise_map=noise)
 
         else:
-            c_t = F.to_tensor(input_image).unsqueeze(0).cuda()
+            c_t = F.to_tensor(input_image).unsqueeze(0)
+            if torch.cuda.is_available():
+                c_t = c_t.cuda()
             if args.use_fp16:
                 c_t = c_t.half()
             output_image = model(c_t, args.prompt)

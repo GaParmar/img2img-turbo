@@ -1,13 +1,16 @@
 import os
 import requests
+import torch
 from tqdm import tqdm
 from diffusers import DDPMScheduler
 
+device = "cuda" if torch.cuda.is_available() else "cpu"
 
 def make_1step_sched():
     noise_scheduler_1step = DDPMScheduler.from_pretrained("stabilityai/sd-turbo", subfolder="scheduler")
-    noise_scheduler_1step.set_timesteps(1, device="cuda")
-    noise_scheduler_1step.alphas_cumprod = noise_scheduler_1step.alphas_cumprod.cuda()
+    noise_scheduler_1step.set_timesteps(1, device=device)
+    if torch.cuda.is_available():
+        noise_scheduler_1step.alphas_cumprod = noise_scheduler_1step.alphas_cumprod.cuda()
     return noise_scheduler_1step
 
 
