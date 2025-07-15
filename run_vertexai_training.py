@@ -24,6 +24,7 @@ if __name__=="__main__":
     parser.add_argument("--experiment_name", type=str, required=True, help='Name of experiment')
     parser.add_argument("--dataset_name", type=str, required=True, help='Name of dataset to train on')
     parser.add_argument("--n_epochs", default=25, type=int, help='Number of training epochs to run')
+    parser.add_argument("--pretrained_model_name_or_path", default='stabilityai/sd-turbo', type=str, help='Continue training from checkpoint')
     args = parser.parse_args()
 
     if not TENSORBOARD_RESOURCE_NAME:
@@ -39,7 +40,7 @@ if __name__=="__main__":
     )
 
     job_args = [args.type,
-                '--pretrained_model_name_or_path', 'stabilityai/sd-turbo',
+                '--pretrained_model_name_or_path', args.pretrained_model_name_or_path,
                 '--output_dir', f'/gcs/{constants.VERTEX_AI_BUCKET_NAME}/cyclegan_turbo_checkpoints/{args.experiment_name}',
                 '--dataset_folder', f'/gcs/{constants.VERTEX_AI_BUCKET_NAME}/cyclegan_synthetic_to_real_silhouettes_dataset/{args.dataset_name}',
                 '--max_train_steps', '25000',
@@ -63,7 +64,8 @@ if __name__=="__main__":
     else:
         job_args.extend(['--num_training_epochs', str(args.n_epochs),
                          '--resolution', '512',
-                         '--track_val_fid'])
+                         '--track_val_fid',
+                         '--num_samples_eval', '500'])
 
     model = job.run(args=job_args,
                     replica_count=1,
