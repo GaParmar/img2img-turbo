@@ -210,6 +210,11 @@ def build_transform(image_prep):
         T = transforms.Compose([
             transforms.Resize((512, 512), interpolation=Image.LANCZOS)
         ])
+    elif image_prep == "grayscale_to_binary":
+        T = transforms.Compose([
+            transforms.Grayscale(),
+            transforms.Lambda(lambda x: x.point(lambda pixel: 0 if pixel < 170 else 255))
+        ])
     elif image_prep == "no_resize":
         T = transforms.Lambda(lambda x: x)
     return T
