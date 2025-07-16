@@ -65,7 +65,9 @@ if __name__=="__main__":
         job_args.extend(['--num_training_epochs', str(args.n_epochs),
                          '--resolution', '512',
                          '--track_val_fid',
-                         '--num_samples_eval', '500'])
+                         '--num_samples_eval', '500',
+                         '--train_image_prep', 'resize_512',
+                         '--test_image_prep', 'resize_512'])
 
     model = job.run(args=job_args,
                     replica_count=1,
