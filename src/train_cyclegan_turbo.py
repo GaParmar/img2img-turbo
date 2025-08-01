@@ -96,9 +96,9 @@ def main(args):
         os.makedirs(output_dir_ref, exist_ok=True)
         # transform all images according to the validation transform and save them
         for _path in tqdm(l_images_tgt_test):
-            _img = T_val(Image.open(_path).convert("RGB"))
             outf = os.path.join(output_dir_ref, os.path.basename(_path)).replace(".jpg", ".png")
             if not os.path.exists(outf):
+                _img = T_val(Image.open(_path).convert("RGB"))
                 _img.save(outf)
         # compute the features for the reference images
         ref_features = get_folder_features(output_dir_ref, model=feat_model, num_workers=0, num=None,
@@ -113,9 +113,9 @@ def main(args):
         output_dir_ref = os.path.join(args.output_dir, "fid_reference_b2a")
         os.makedirs(output_dir_ref, exist_ok=True)
         for _path in tqdm(l_images_src_test):
-            _img = T_val(Image.open(_path).convert("RGB"))
             outf = os.path.join(output_dir_ref, os.path.basename(_path)).replace(".jpg", ".png")
             if not os.path.exists(outf):
+                _img = T_val(Image.open(_path).convert("RGB"))
                 _img.save(outf)
         # compute the features for the reference images
         ref_features = get_folder_features(output_dir_ref, model=feat_model, num_workers=0, num=None,
