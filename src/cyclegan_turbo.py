@@ -3,6 +3,7 @@ import sys
 import copy
 import torch
 import torch.nn as nn
+from functools import lru_cache
 from transformers import AutoTokenizer, CLIPTextModel
 from diffusers import AutoencoderKL, UNet2DConditionModel
 from peft import LoraConfig
@@ -238,6 +239,14 @@ class CycleGAN_Turbo(torch.nn.Module):
         params_gen = params_gen + list(vae_b2a.decoder.skip_conv_4.parameters())
         return params_gen
 
+    @lru_cache
+    def get_caption_enc(self,caption, max_length, padding, truncation, return_tensors, device):
+        caption_tokens = self.tokenizer(caption, max_length=self.tokenizer.model_max_length,
+                    padding="max_length", truncation=True, return_tensors="pt").input_ids.to(device)
+        caption_enc = self.text_encoder(caption_tokens)[0].detach().clone()
+        return caption_enc
+        
+
     def forward(self, x_t, direction=None, caption=None, caption_emb=None):
         if direction is None:
             assert self.direction is not None
@@ -248,7 +257,6 @@ class CycleGAN_Turbo(torch.nn.Module):
         if caption_emb is not None:
             caption_enc = caption_emb
         else:
-            caption_tokens = self.tokenizer(caption, max_length=self.tokenizer.model_max_length,
-                    padding="max_length", truncation=True, return_tensors="pt").input_ids.to(x_t.device)
-            caption_enc = self.text_encoder(caption_tokens)[0].detach().clone()
+            caption_enc = self.get_caption_enc(caption, max_length=self.tokenizer.model_max_length,
+                                                padding="max_length", truncation=True, return_tensors="pt", device=x_t.device)
         return self.forward_with_networks(x_t, direction, self.vae_enc, self.unet, self.vae_dec, self.sched, self.timesteps, caption_enc)
