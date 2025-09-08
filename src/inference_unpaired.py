@@ -43,8 +43,8 @@ if __name__ == "__main__":
     # translate the image
     with torch.no_grad():
         input_img = T_val(input_image)
-        x_t = transforms.ToTensor()(input_img)
-        x_t = transforms.Normalize([0.5], [0.5])(x_t).unsqueeze(0).cuda()
+        x_t = transforms.ToTensor()(input_img).cuda()
+        x_t = transforms.Normalize([0.5], [0.5])(x_t).unsqueeze(0)
         if args.use_fp16:
             x_t = x_t.half()
         output = model(x_t, direction=args.direction, caption=args.prompt)
